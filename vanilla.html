@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+        <div id="root"></div>
+    </body>
+    <!-- React JS, ReactDOM코드를 import 함 -->
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        // 생성하고자 하는 HTML 태그와 똑같 은 이름이어야만 함 span만들고 span의 id를 sexy-span으로 설정
+        const root = document.getElementById("root");
+
+        function App() {
+            const [amount, setAmount] = React.useState();
+            const [flipped, setFlipped] = React.useState(false);
+            const onChange = (event) => {
+                setAmount(event.target.value);
+            };
+            const reset = () => setAmount(0);
+            const onFlip = () => setFlipped((current) => !current);
+            //React.useState() 함수는 초기값을 설정 할 수 있음
+            return (
+                <div>
+                    <h1 className="hi">super converter</h1>
+
+                    <div>
+                        <label htmlFor="minutes">Minutes</label>
+                        <input
+                            value={flipped ? amount * 60 : amount}
+                            id="minutes"
+                            placehoder="Minutes"
+                            type="number"
+                            onChange={onChange}
+                            disabled={flipped === true}/>
+                    </div>
+                    <div>
+                        <label htmlFor="hours">Hours</label>
+                        <input
+                            value={flipped ? amount : Math.round(amount / 60)}
+                            id="hours"
+                            placehoder="Hours"
+                            type="number"
+                            disabled={flipped === false}
+                            onChange={onChange}
+                            />
+                    </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onFlip}>Flip</button>
+                </div>
+            );
+        }
+        ReactDOM.render(<App/>, root);
+
+        /* 오래된 방식임
+    const h3 = React.createElement("h3", {
+            id: "title",
+            onMouseEnter: () => console.log('mouse enter'),
+        },
+        "Hello I'm span"
+    );
+*/
+
+        // render의 의미 : React element를 가지고 HTML로 만들어 배치한다는 것 즉 사용자한다 보여줌
+        // ReactDOM.render(container, root); JavaScript를 이용해 element를 생성했고 React JS가
+        // HTML로 번역한것임
+    </script>
+
+</html>
